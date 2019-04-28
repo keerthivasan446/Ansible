@@ -1,0 +1,14 @@
+---
+ - hosts: group1
+   become: true
+   vars:
+       user_name: kv
+       group_name: kv
+   tasks:
+      - name: create group
+        group: name={{group_name}}
+        register: create_output
+
+      - name: create user with in the group
+        user: name={{user_name}} group={{group_name}} createhome=yes
+        when: create_output|success

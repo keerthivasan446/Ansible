@@ -1,0 +1,14 @@
+---
+ - hosts: group1
+   become: true
+   vars:
+       package_name: httpd
+       service_name: httpd
+   tasks:
+      - name: install httpd
+        yum: name={{package_name}} state=installed
+        register: install_output
+
+      - name: starting httpd service
+        service: name={{service_name}} state=running enabled=true
+        when: install_output|success
