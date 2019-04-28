@@ -9,6 +9,8 @@
         group: name={{group_name}}
         register: create_output
 
+      - debug: msg=create_output
+
       - name: create user with in the group
         user: name={{user_name}} group={{group_name}} createhome=yes
         when: create_output|success
