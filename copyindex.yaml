@@ -1,0 +1,28 @@
+---
+ - hosts: group1
+   become: true
+   tasks:
+     - name: installing multiple packages
+       yum: name={{item}} state=installed disable_gpg_check=yes
+       with_items:
+        - httpd
+        - mariadb
+        - php
+       register: Lump_install
+
+     - name: Check if package is installed
+       command: httpd -v
+       register: apache_service
+       
+     - name: start apache service
+       service: name=httpd enabled=yes state=started
+       when: apache_service|success
+
+     - name: copy index file
+       copy: src=/home/ansadmin/Ansible/index.html dest=/var/www/html/index.html
+       when: apache_service|success
+       register: copy_file
+       
+     - name: restart apache service
+       service: name=httpd enabled=yes state=restarted
+       when: copy_file|success
