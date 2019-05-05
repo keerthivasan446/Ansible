@@ -1,0 +1,8 @@
+---
+ - hosts: group1
+   become: true
+   tasks:
+      - include: CentOS.yaml
+        when: ansible_distribution=='CentOS'
+      - include: Ubuntu.yaml
+        when: ansible_distribution=='Ubuntu'

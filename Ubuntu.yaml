@@ -1,0 +1,22 @@
+---
+ - hosts: group1
+   become: true
+   tasks:
+     - name: Install apache2
+       apt: name=apache2 state=latest
+       when: ansible_distribution=='Ubuntu'
+       register: apache2_installation
+
+     - name: start apache2 service
+       service: name=apache2 enabled=yes state=started
+       when: apache2_installation|success and ansible_distribution=='Ubuntu'
+       register: apache2_service
+
+     - name: copy index file
+       copy: src=/home/ansadmin/Ansible/index.html dest=/var/www/html/index.html
+       when: apache2_service|success and ansible_distribution=='Ubuntu'
+       register: copy_file1
+
+     - name: restart apache2 service
+       service: name=apache2 enabled=yes state=restarted
+       when: copy_file1|success and ansible_distribution=='Ubuntu'

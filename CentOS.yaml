@@ -1,0 +1,21 @@
+ - hosts: group1
+   become: true
+   tasks:
+     - name: Install apache
+       yum: name=httpd state=installed disable_gpg_check=yes
+       when: ansible_distribution=='CentOS'
+       register: apache_installation
+
+     - name: start apache service
+       service: name=httpd enabled=yes state=started
+       when: apache_installation|success and ansible_distribution=='CentOS'
+       register: apache_service
+
+     - name: copy index file
+       copy: src=/home/ansadmin/Ansible/index.html dest=/var/www/html/index.html
+       when: apache_service|success
+       register: copy_file
+
+     - name: restart apache service
+       service: name=httpd enabled=yes state=restarted
+       when: copy_file|success and ansible_distribution=='CentOS'

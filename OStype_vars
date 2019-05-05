@@ -1,0 +1,46 @@
+---
+ - hosts: group1
+   become: true
+vars_prompt:
+     - name: "pkg_list"
+       prompt: "enter the package to be installed:"
+     - name: "Service_name"
+       prompt: "Enter the service name:"
+     - name: "Config_File"
+       prompt: "Enter the Filename:"         
+   tasks:
+     - name: Install apache
+       yum: name={{pkg_list}} state=installed disable_gpg_check=yes
+       when: ansible_distribution=='CentOS'
+       register: apache_installation
+
+     - name: start apache service
+       service: name={{Service_Name}} enabled=yes state=started
+       when: apache_service|success       
+       
+     - name: copy index file
+       copy: {{Config_File}} dest=/var/www/html/index.html
+       when: apache_service|success
+       register: copy_file
+
+     - name: restart apache service
+       service: name={{Service_Name}} enabled=yes state=restarted
+       when: copy_file|success       
+
+     - name: Install apache2
+       apt: name={{pkg_list}} state=latest
+       when: ansible_distribution=='Ubuntu'
+       register: apache2_installation
+       
+     - name: start apache2 service
+       service: name={{Service_Name}} enabled=yes state=started
+       when: apache2_installation|success       
+       
+     - name: copy index file
+       copy: src={{Config_File}} dest=/var/www/html/index.html
+       when: apache2_service|success
+       register: copy_file1
+
+     - name: restart apache2 service
+       service: name={{Service_Name}} enabled=yes state=restarted
+       when: copy_file1|success

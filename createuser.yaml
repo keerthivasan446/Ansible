@@ -1,16 +1,8 @@
 ---
  - hosts: group1
    become: true
-   vars:
-       user_name: kv
-       group_name: kv
+   vars_files:
+      - userpar.yaml   
    tasks:
-      - name: create group
-        group: name={{group_name}}
-        register: create_output
-
-      - debug: msg=create_output
-
       - name: create user with in the group
-        user: name={{user_name}} group={{group_name}} createhome=yes
-        when: create_output|success
+        user: name={{user_name}} password={{user_password|password_hash('sha512')}} shell=/bin/bash
