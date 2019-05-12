@@ -1,0 +1,25 @@
+---
+ - hosts: centos
+   become: true
+   tasks:
+     - name: installing httpd packages
+       yum: name={{item}} state=installed disable_gpg_check=yes
+       with_items:
+        - httpd
+       register: httpd_status
+
+     - name: start apache service
+       service: name={{item}} enabled=yes state=started
+       with_items:
+        - httpd
+       when: httpd_status|success
+       register: apache_service
+
+     - name: update conf file
+       lineinfile: dest=/etc/httpd/conf/httpd.conf state=present regexp="^Listen" line="Listen 8080"
+       when: apache_service|success
+       notify: httpd_restart
+         
+   handlers:
+     - name: "httpd_restart"
+       service: name=httpd enabled=yes state=restarted

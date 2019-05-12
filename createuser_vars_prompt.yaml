@@ -11,6 +11,6 @@
        encrypt: "md5_crypt"
        confirm: yes	   
     
- - tasks:
+   tasks:
      - name: Creating user
        user: name={{user_name}} password={{user_password}} shell=/bin/bash

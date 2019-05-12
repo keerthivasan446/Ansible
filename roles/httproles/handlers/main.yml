@@ -1,0 +1,4 @@
+---
+# handlers file for httproles
+ - name: "httpd_restart"
+   service: name=httpd enabled=yes state=restarted
