@@ -1,0 +1,5 @@
+---
+db_user: dbuser
+db_group: dbgroup
+db_pkg_list: [mariadb,mariadb-server]
+db_service_name: [mariadb]

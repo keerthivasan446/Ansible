@@ -1,0 +1,5 @@
+---
+web_user: lampuser
+web_group: lamp_group
+web_pkg_list: [httpd,php]
+web_service_name: httpd

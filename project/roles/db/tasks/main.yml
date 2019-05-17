@@ -1,0 +1,19 @@
+---
+# tasks file for db
+ - name: create the user
+   user: name={{db_user}} group={{db_group}} createhome=yes
+
+ - name: add the user to db group
+   user: name={{db_user}} group={{group_name}} append=yes
+
+ - name: install the maria db
+   apt: name={{item}} state=installed
+   with_items:
+   - {{db_pkg_list}}
+   register: package_install
+
+ - name: start the service
+   servcie: name={{item}} enabled=yes state=enabled
+   with_items:
+   - {{db_service_name}}
+   when: package_install|success

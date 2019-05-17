@@ -1,0 +1,17 @@
+---
+# tasks file for web
+ - name: creating the user
+   user: name={{web_user}} group={{web_group}} createhome=yes
+
+ - name: adding the user to the admgroup
+   user: name={{web_user}} group={{group_name}} append=yes
+
+ - name: install the packages
+  yum: name={{item}} state=installed
+  with_items:
+   - {{web_pkg_list}}
+  register: package_install
+
+ - name: start the service
+   service: name={{web_service_name}} enabled=yes state=enabled
+   when: package_install|success

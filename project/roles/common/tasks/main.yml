@@ -1,0 +1,8 @@
+---
+# tasks file for common
+
+ - name: creating the user
+   user: name={{user_name}} group={{group_name}} createhome=yes
+
+ -name: create a script file
+  file: path=/home/scripts/validate.sh state=touch
