@@ -7,10 +7,10 @@
    user: name={{web_user}} group={{group_name}} append=yes
 
  - name: install the packages
-  yum: name={{item}} state=installed
-  with_items:
-   - {{web_pkg_list}}
-  register: package_install
+   yum: name={{item}} state=installed
+   with_items:
+   - "{{web_pkg_list}}"
+   register: package_install
 
  - name: start the service
    service: name={{web_service_name}} enabled=yes state=enabled

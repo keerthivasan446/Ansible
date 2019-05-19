@@ -9,11 +9,11 @@
  - name: install the maria db
    apt: name={{item}} state=installed
    with_items:
-   - {{db_pkg_list}}
+   - "{{db_pkg_list}}"
    register: package_install
 
  - name: start the service
-   servcie: name={{item}} enabled=yes state=enabled
+   service: name={{item}} enabled=yes state=enabled
    with_items:
-   - {{db_service_name}}
+   - "{{db_service_name}}"
    when: package_install|success
