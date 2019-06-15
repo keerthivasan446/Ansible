@@ -1,0 +1,16 @@
+pipeline {
+	agent any
+	
+parameters {
+	string(name: 'var1', description: 'enter the value of A')
+	choice(name: 'choice', choices: ['yes', 'no'], description: 'Enter the option [yes/no]')
+	}
+stages {
+	stage('Testing') {
+			steps {
+				echo "Hello ${params.var1}"
+				echo " Hello ${params.choice}"
+			}
+		}
+	}
+}
