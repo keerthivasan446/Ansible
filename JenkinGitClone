@@ -1,0 +1,12 @@
+node {
+    stage 'stage 1'
+            echo 'Node Method Deployment'
+    stage 'checkout'
+            git url: 'https://github.com/keerthivasan446/DevopsClass.git'
+    stage 'execute script'
+            sh 'ls -al'
+            sh 'chmod 775 dev.sh'
+            sh 'ls -al'
+            sh './dev.sh'
+    stage 'Deploy'
+            sh 'df -h'
