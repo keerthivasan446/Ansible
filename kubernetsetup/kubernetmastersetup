@@ -1,0 +1,12 @@
+
+yum install -y kubelet kubeadm kubectl docker
+systemctl enable kubelet && systemctl start kubelet
+kubeadm init --pod-network-cidr=172.30.0.0/16 -- 15 min 
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl get nodes
+kubectl get nodes -o wide
+kubectl get pods --all-namespaces
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+

@@ -1,0 +1,50 @@
+kubectl help config
+kubectl config view
+kubectl confg set-cluster server: https://192.168.0.102:6443
+kubectl confg set-cluster server: https://192.168.0.2:6443
+kubectl config set-cluster server: https://192.168.0.2:6443
+kubectl config view
+kubectl config set-cluster e2e --server=https://192.168.0.2:6443
+kubectl config delete-cluster e2e
+kubectl config view
+kubectl config set-cluster kubernetes --server=https://192.168.0.2:6443
+kubectl config view
+kuebctl get pods
+kubectl get nodes
+kubectl reset
+kubeadm reset
+kubeadm init --pod-network-cidr=172.30.0.0/16
+kubectl get nodes
+kubectl get pods
+systemctl status kubelet
+systemctl restart kubelet
+kubectl get nodes
+kops export kubecfg --name $CLUSTER_NAME
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl get nodes
+kubectl get pods --all-namespaces
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl get pods --all-namespaces
+kubectl create -f tomcat.yml 
+kubectl create -f tomcat.yml -o yaml
+kubectl get deployment
+kubectl get pods
+kubectl describe pods
+kubectl get pods
+kubectl log pods
+kubectl log tomcat
+kubectl get pods
+kubectl logs tomcat
+kubectl get pods
+kubectl logs --tail=20 tomcat
+kubectl get pods
+kubectl describe pods
+kubectl create -f https://raw.githubusercontent.com/mhausenblas/kbe/master/specs/pods/constraint-pod.yaml
+kubectl describe pod constraintpod
+kubectl get pod tomcat
+kubectl get pod 
+kubectl create -f https://raw.githubusercontent.com/mhausenblas/kbe/master/specs/pods/pod.yaml
+kubectl describe pod twocontainers
+

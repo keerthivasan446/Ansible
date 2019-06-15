@@ -1,0 +1,6 @@
+
+setup kubernet repostiry 
+yum install -y  kubeadm docker
+
+kubeadm join 192.168.0.102:6443 --token qjm4bc.ck91nbb7v92xk6tk --discovery-token-ca-cert-hash sha256:ded1208aebcc1276deb3250e71a1cb4cf00d5516ff9a85d0e3d618f83ca104a4
+
